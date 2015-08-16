@@ -1,0 +1,1 @@
+var search_data = {"index":{"searchIndex":["activerecord"],"longSearchIndex":["activerecord"],"info":[["ActiveRecord","","ActiveRecord.html","",""]]}}
