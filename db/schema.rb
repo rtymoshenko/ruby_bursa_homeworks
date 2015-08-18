@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150816235121) do
+ActiveRecord::Schema.define(version: 20150817020614) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,43 @@ ActiveRecord::Schema.define(version: 20150816235121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "goods", force: :cascade do |t|
+    t.string   "name"
+    t.binary   "photo"
+    t.text     "description"
+    t.integer  "category_id"
+    t.float    "price"
+    t.boolean  "available"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "goods", ["category_id"], name: "index_goods_on_category_id", using: :btree
+
+  create_table "goods_orders", force: :cascade do |t|
+    t.integer  "order_id"
+    t.integer  "good_id"
+    t.integer  "count"
+    t.float    "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "goods_orders", ["good_id"], name: "index_goods_orders_on_good_id", using: :btree
+  add_index "goods_orders", ["order_id"], name: "index_goods_orders_on_order_id", using: :btree
+
+  create_table "orders", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "status"
+    t.string   "delivery_adress"
+    t.integer  "payment_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "orders", ["payment_id"], name: "index_orders_on_payment_id", using: :btree
+  add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "payments", force: :cascade do |t|
     t.string   "type_of_payment"
@@ -37,4 +74,9 @@ ActiveRecord::Schema.define(version: 20150816235121) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "goods", "categories"
+  add_foreign_key "goods_orders", "goods"
+  add_foreign_key "goods_orders", "orders"
+  add_foreign_key "orders", "payments"
+  add_foreign_key "orders", "users"
 end
