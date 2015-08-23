@@ -3,4 +3,8 @@ rvm:
  - "2.2.0"
 branches:
   only:
-  	- development
+  - development
+gemfile:
+- Gemfile
+before_script:
+- psql -c 'create database shop_prod_db;' -U postgres
