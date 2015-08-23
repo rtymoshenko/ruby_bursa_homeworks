@@ -17,7 +17,6 @@ deploy:
   run:
    - "rake db:migrate"
    - restart
-   - "rake cleanup"
   on:
     branch: development
     rvm: 2.2.0
