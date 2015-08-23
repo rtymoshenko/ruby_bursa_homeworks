@@ -14,3 +14,6 @@ deploy:
   provider: heroku
   api_key: a49096a9-2a99-41d7-82c9-e1ab03a4f68d
   app: rubylife
+  on:
+    branch: development
+    rvm: 2.2.0
