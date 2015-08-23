@@ -7,4 +7,5 @@ branches:
 gemfile:
 - Gemfile
 before_script:
-- bundle exec rake db:setup 
+- psql -c 'create database ex_rails_test_db' -U postgres
+- bundle exec rake db:create db:migrate db:schema:load
